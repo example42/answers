@@ -2,27 +2,87 @@
 
 ## Beginner 
 
+It automates the configuration of computers.
+
+With its language it describes and manage resources
+like: packages, services, files, users.
+
+Thanks to its modular design, it can configure
+virtually any kind of IT resource of any OS.
+
+On the Puppet Forge we can find modules for
+any use case.
+
+Puppet users are Sysadmins who manage
+hundreds or thousands of servers,
+someone call them DevOps or SRE.
+
+You will hardly need to know it,
+unless you work in IT operations.
+
+
 ## Junior
+
+### Essential concepts
+
+In a standard setup, on a managed node runs Puppet agent,
+which sends the node's certificate and facts to the server.
+
+Using these and its local Puppet code and data,  the Puppet server
+generates and returns a catalog of resources to apply on the node.
+
+The catalog is based on code in the Puppet language,
+saved in files called manifests, with .pp extension.
+
+In the Puppet code we declare resources that manage
+elements of the system (files, packages, services ...).
+
+Resources are grouped in classes which
+may have parameters that affect their behaviour.
+
+The values of the class parameters can be set via Hiera.
+
+Hiera is a pluggable key-pair lookup tool,
+based on hierarchies we can customise.
+
+Classes, new resources, custom facts and any relevant
+configuration file for a specific purpose are organised in modules.
+
+The Puppet Forge is a public collection of reusable modules.
+
+All our Puppet code (local and public modules) and Hiera data
+can be stored or referred to in the control-repo.
 
 ### Puppet infrastructure
 
-In a typical setup we have:
+A typical Puppet infrastructure is composed by:
 
-Clients, our managed nodes, where Puppet agent is installed:
-  - Connect to server via https to port 8140 TCP
-  - Have a local certificate, with the node name
-  - Puppet agent runs as root (or Administrator)
-  - Collect local facts and send them to server
-  - Apply the catalog received from the server
+Our managed nodes, where Puppet agent client is installed:
 
-Server, our friendly Puppet Master
-  - Contains our Puppet code and data
-  - It generates a catalog or resources to apply on the client
-  - Catalog is based on the code and data on server and the client certificate and facts
-  - Acts as Certification Authority for Puppet certificates
-  - Can store clients' catalogs, facts and reports to PuppetDB
+- Connect to server via https to port 8140 TCP
+- Are identified by a ssl certificate, with the node name
+- Runs Puppet agent as root (or Administrator)
+- Collect local facts and send them to server
+- Apply the catalog received from the server
 
-Puppet can also be used on a node without servers, to query or change local resources.
+One or more Puppet servers, our friendly Puppet Masters.
+
+- Our Puppet code and data is here
+- Compiles a catalog of resources to apply on eacht client
+- Use client certname and facts, and our code and data
+  to define what resources are expected on each node
+- Act as Certification Authority for clients and servers certificates
+- Can store clients' catalogs, facts and reports to PuppetDB
+  
+You can still use Puppet on a single node, even your workstation,
+without servers, in master less mode, to:
+
+- Get the system facts
+- Apply directly local Puppet code
+- Investigate how Puppet represents system resources.
+
+
+
 
 ### How to run Puppet
 
@@ -34,26 +94,6 @@ A Puppet run on a client can be triggered in different ways:
 - In a centralized way via MCollective or Bolt
 - From the Puppet Enterprise (PE), via Orchestration features, based on MCollective, in older versions, or Bolt, starting from PE version 2016.x
 
-
-
-
-### Essential concepts
-
-The catalog is based on Puppet code, which is written in manifests (files with .pp extension)
-
-In the Puppet code we declare resources that affect elements of the system (files, packages, services ...)
-
-Resources are grouped in classes which may expose parameters that affect their behavior.
-
-The values of the class parameters can be set, with different values for different nodes, via Hiera
-
-Hiera is a key-pair lookup tool, based on hierarchies we can define
-
-Classes and the configuration files that are shipped to nodes are organized in modules.
-
-The Puppet Forge is a public collection of reusable modules.
-
-All our Puppet code (local and public modules) and Hiera data can be stored or referred to in the control-repo.
 
 
 ### Anatomy of a Puppet Run
