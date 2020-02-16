@@ -1,4 +1,5 @@
 ## Control repo
+<img src="gfx/junior.png" class="skill">
 
 A control repo has a configuration files where is defined the modulepath to use, if to use caching and what configuration version to show on Puppet runs output:
 
@@ -33,6 +34,7 @@ A directory where modules defined in Puppetfile are copied. This is actually exp
 ---
 
 ### Puppet environments and control repo
+<img src="gfx/junior.png" class="skill">
 
 The control repo has the content of a Puppet environment.
 
