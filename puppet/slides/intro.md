@@ -3,14 +3,16 @@
 
 Puppet **automates** the configurations of computers.
 
-With its language it can **manage resources** like:
-packages, services, files, users.
+With its language it can **manage resources** like:  
+packages, services, files, users, mounts, crons..
+but also, just to give an idea:  
+ec2_instances, docker_networks, mysql::databases, gcompute_firewalls 
 
 Thanks to its modular design, using dedicated **modules**
 it can configure virtually any kind of IT resource of any OS.
 
-Typical Puppet users are **Sysadmins** who
-manage hundreds or thousands of servers,
+Typical Puppet users are **Sysadmins** and **Site Reliability Engineers** who
+manage hundreds or thousands of servers.
 
 Puppet is developed by a company called... [Puppet](https://puppet.com/)
 

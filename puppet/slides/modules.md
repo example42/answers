@@ -1,3 +1,17 @@
+## Modules
+
+Puppet code is distributed and reused via **modules**.
+
+There are modules to manage virtually any kind of software, systems' components, network device or cloud object.
+
+The [Puppet Forge](https://forge.puppet.com) is the official repository of modules, from Puppet company, its partners and the community.
+
+Most of the public modules are published on [GitHub](https://github.com/search?q=puppet+modules).
+
+Any module added on Puppet's **modulepath** is available for usage.
+
+---
+
 ### Modules conventions: class autoloading
 
 A module is a directory. The name of the module is the name of the directory.

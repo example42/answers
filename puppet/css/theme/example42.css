@@ -8,7 +8,8 @@
 /*********************************************
  * GLOBAL STYLES
  *********************************************/
-body {
+
+ body {
   vertical-align: top;
   background: #111;
   background-color: #111; }
@@ -22,18 +23,19 @@ body {
   
 .reveal {
   vertical-align: top;
-  font-family: "Open Sans", sans-serif;
+/*  font-family: "Open Sans", sans-serif; */
+  font-family: Geneva, Verdana, sans-serif;
   font-size: 40px;
   font-weight: normal;
-  color: #eee; }
+  color: rgb(46, 40, 40); }
 
 ::selection {
-  color: #fff;
+  color: rgb(116, 89, 89);
   background: #e7ad52;
   text-shadow: none; }
 
 ::-moz-selection {
-  color: #fff;
+  color: rgb(43, 30, 30);
   background: #e7ad52;
   text-shadow: none; }
 
@@ -53,7 +55,7 @@ body {
 .reveal h5,
 .reveal h6 {
   margin: 0 0 20px 0;
-  color: #eee;
+  color: rgb(131, 100, 100);
   font-family: "Montserrat", Impact, sans-serif;
   font-weight: normal;
   line-height: 1.2;
@@ -63,17 +65,21 @@ body {
   word-wrap: break-word; }
 
 .reveal h1 {
-  font-size: 3.77em; }
+  font-size: 3em;
+  color: rgb(75, 13, 13);
+ }
 
 .reveal h2 {
   margin: 20px 0;
   padding-left: 4%;
   text-align: left;
-  font-size: 2.11em; }
+  font-size: 2em; }
 
 .reveal h3 {
   margin: 20px 0;
   padding-left: 4%;
+  text-align: left;
+  color: dimgrey;
   font-size: 1.55em; }
 
 .reveal h4 {
@@ -88,8 +94,9 @@ body {
 .reveal p {
   margin: 20px 0;
   padding-left: 4%;
+  padding-right: 4%;
   text-align: left;
-  line-height: 1.3; }
+  line-height: 1.2; }
 
 /* Ensure certain elements are never larger than the slide itself */
 .reveal img,
@@ -226,7 +233,7 @@ body {
  * LINKS
  *********************************************/
 .reveal a {
-  color: #e7ad52;
+  color: #302410;
   text-decoration: none;
   -webkit-transition: color .15s ease;
   -moz-transition: color .15s ease;

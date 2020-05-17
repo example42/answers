@@ -1,4 +1,4 @@
-# The Puppet command
+## The Puppet command
 <img src="gfx/junior.png" class="skill">
 
 Puppet executable has (pluggable) subcommands with their actions and options
