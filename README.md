@@ -1,6 +1,5 @@
 # example42 answers
 
-
 ## Puppet slides
 
 Slides are based on reveal.js and contain screencasts made with asciinema.
@@ -9,13 +8,13 @@ You need to install [node.js](https://nodejs.org/) first.
 
 Setup on Linux and Mac:
 
-    cd puppet
+    cd puppet/course
     npm install
     npm start
 
 Setup on Windows:
 
-    cd puppet
+    cd puppet/course
     npm install
     npm install -g grunt-cli
     npm rebuild node-sass
