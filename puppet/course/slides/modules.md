@@ -12,7 +12,7 @@ Any module added on Puppet's **modulepath** is available for usage.
 
 ---
 
-### Modules conventions: class autoloading
+## Modules conventions: class autoloading
 
 A module is a directory. The name of the module is the name of the directory.
 Puppet has powerful naming conventions for modules.
@@ -39,7 +39,7 @@ Class mysql::server::ha will be in:
 
 ---
 
-### Modules conventions: templates
+## Modules conventions: templates
 
 Templates are files in Puppet epp or Ruby erb format which are typically passed to the epp() and template() functions inside Puppet code.
 
@@ -69,7 +69,7 @@ We interpolate the epp template placed in
 
 ---
 
-### Modules conventions: files
+## Modules conventions: files
 
 
 Static files are placed in:
@@ -86,7 +86,9 @@ The actual file used will be
 
     mysql/files/my.cnf
 
-### Modules conventions: tasks and plans
+---
+
+## Modules conventions: tasks and plans
 
 Bolt Tasks are the "new" thing. They can be scripts in any language which can be executed via Bolt:
 
@@ -100,8 +102,9 @@ Plugins directory with custom facts, types, providers, functions  in Ruby code e
 
     mysql/lib/*.rb
 
+---
 
-### Where modules are placed: modulepath
+## Where modules are placed: modulepath
 
 Modulepath (comma separated directories where modules are stored):
 
@@ -115,3 +118,31 @@ On old Puppet 3 default module path was:
 and, when using directory environments:
 
     /etc/puppet/environments/$environment/modules
+
+---
+
+## Principles behind a Reusable Module
+
+Data Separation
+
+  - Configuration data is defined outside the module
+  - Module behavior can be managed via parameters
+  - Allow module's extension and override via external data
+
+Reusability
+
+  - Support different OS. Easily allow new additions.
+  - Customize behavior without changing module code
+  - Do not force author idea on how configurations should be provided
+
+Standardization
+
+  - Follow PuppetLabs style guidelines (puppet-lint)
+  - Have coherent, predictable and intuitive interfaces
+  - Provide contextual documentation (puppet-doc)
+
+Interoperability
+
+  - Limit cross-module dependencies
+  - Allow easy modules cherry picking
+  - Be self contained, do not interfere with other modules' resources

@@ -63,3 +63,28 @@ Servers and devices managed in this way have been described as **Infrastructure 
 - **Test**: Code can be tested and its effect verified before production rollout
 - **Reproduce**: Coherent and consistent server setups with aligned environments for devel, test, qa, prod nodes
 - **Scale**: What's done once, for one, can be automated always for many servers
+
+---
+
+## DevOps and Configuration management
+
+DevOps is a [term](https://en.wikipedia.org/wiki/DevOps) that involves a remarkable number of concepts, nuances and definitions.
+
+We won't try to give another one, but we can safely say that DevOps is (also) about **culture**, **processes**, **people** and **tools**.
+
+A complete [DevOps tools chain](https://xebialabs.com/the-ultimate-devops-tool-chest/) contains software of these categories:
+
+- Source Code Management (We use them when writing Puppet code)
+- Repository and software Management  (Puppet can configure them)
+- Software build (Puppet can configure them)
+- Configuration Management (**Puppet is here**)
+- Testing  (We can test our Puppet code)
+- Monitoring and data analysis  (Puppet can configure them)
+- Systems and Applications Deployment (Puppet can be also here)
+- Continuous integration  (We can manage Puppet code deployments in a CI pipeline)
+- Cloud (Puppet code can manage cloud resources)
+- Project management and Issue tracking  (We can use them to manage our Puppet projects)
+- Messaging and Collaboration (We can use them to collaborate on Puppet works)
+- Containerization and Virtualization (Puppet can configure them)
+- Databases (Puppet can configure them)
+- Application servers (Puppet can configure them)
