@@ -71,7 +71,7 @@ Starting from Puppet 4 parameters can be validated using the (very flexible and 
 Class definition in older Puppet versions: 
 
     class motd (
-      $content => 'This is the motd',
+      $content = 'This is the motd',
     ) {
       file { '/etc/motd':
         content => $content,
@@ -81,7 +81,7 @@ Class definition in older Puppet versions:
 Same class with parameters validation from Puppet 4:
 
     class motd (
-      String $content => 'This is the motd',
+      String $content = 'This is the motd',
     ) {
       file { '/etc/motd':
         content => $content,
