@@ -16,7 +16,7 @@ Setup on Windows:
 
     cd puppet/course
     npm install
-    npm install -g grunt-cli
+    npm install -g gulp-cli
     npm rebuild node-sass
     npm start
 
