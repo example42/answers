@@ -1,19 +1,49 @@
-# Hiera
+<p align=center style="font-family:Impact, Papyrus; font-size:3em">What you need to know about</p>
+<p align=center style="font-family:Impact, Papyrus; font-size:6em; margin-top: 15px">Hiera</p>
 
-[Hiera](https://docs.puppet.com/hiera/) is Puppet's builtin key/value data lookup system, where we can store the data we use to configure our system. It has some peculiar characteristics:
+---- 
 
-  - It's **hierarchical**: We can configure different hierarchies of data sources and these are traversed in order to find the value of the desired key, from the level at the top, to the one at the bottom.
+### Authors
+- Alessandro Franceschi
+- Martin Alfke
+
+### Published by
+<img src="../example42.png" />
+
+
+<div style="page-break-after: always;"></div>
+
+### Contents
+- Introduction
+- Puppet automatic parameters lookup
+- Hiera configuration: hiera.yaml
+- Environment and module data
+- Hiera Lookup Options
+- The lookup command
+- Encrypt data with Hiera Eyaml
+- Migrating from Hiera 3 to Hiera 5
+- Hiera nested lookups
+- Advanced hierarchies: globs and mapped paths
+
+
+<div style="page-break-after: always;"></div>
+
+## Introduction
+
+[Hiera](https://docs.puppet.com/hiera/) is [Puppet](https://docs.puppet.com/puppet/)'s builtin key/value data lookup tool, where we can store the data we use to configure our systems. It has some peculiar characteristics:
+
+  - It's **hierarchical**: We can define different hierarchies of data sources and these are traversed in order to find the value of the desired key, from the level at the top, to the one at the bottom.
   This is very useful to allow granular configurations of different settings for different groups of servers
 
-  - It has a **modular backend** system: data can be stored on different places, according to the used plugins, from simple `Yaml` or `Json` files, to `MongoDb`, `Mysql`, `PostgreSQL`, `Redis` and [others](https://voxpupuli.org/plugins/#hiera) to the popular Hiera eyaml backend which uses plain files for data storage and allows encryption of the values of selected keys (typically the ones which contains passwords or secrets)
+  - It has a **modular backend** system: data can be stored on different places, according to the used plugins, from simple Yaml or Json files, to MongoDb, Mysql, PostgreSQL, Redis and [others](https://voxpupuli.org/plugins/#hiera) to the popular Hiera eyaml backend which uses plain files for data storage and allows encryption of the values of selected keys (typically the ones which contains passwords or secrets)
 
 This allows great flexibility in setting parameters that affect the nodes of our infrastructure.
 
-### Automatic parameters lookup
+## Automatic parameters lookup
 
 Hiera is important because it allows to assign values to the parameters of Puppet classes, so it's the best method to configure the classes we use according to our needs.
 
-A parameter called ```server``` of a class called ```ntp```, for example, can be evaluated via a lookup of the Hiera key ```ntp::server```:
+A parameter called ```server``` of a class called ```ntp``` as in this example for example, can be evaluated via a lookup of the Hiera key ```ntp::server```:
 
     class ntp (
       String $server = 'ntp.pool.org'
@@ -29,7 +59,7 @@ This is useful to cleanly separate our `Puppet code`, where we declare, inside c
 In `Puppet 4.9`, `Hiera version 5` has been introduced and this is the version used in modern Puppet setups.
 
 
-### Hiera configuration: hiera.yaml
+## Hiera configuration: hiera.yaml
 
 `Hiera's` configuration file (```hiera.yaml```) has changed format in version 5, here's the default, which uses the core `Yaml` backend and has only a layer called common:
 
@@ -76,7 +106,7 @@ The key infos we can get from it are:
 
 For full reference on the format of `Hiera 5` configuration file, check the [Official Documentation](https://docs.puppet.com/puppet/latest/hiera_config_yaml_5.html)
 
-### Environment and module data
+## Environment and module data
 
 `Hiera 4`, used from Puppet versions 4.3 to 4.8, introduced the possibility of defining, inside a module, the default values of each class parameter using Hiera.
 
@@ -125,7 +155,7 @@ The interesting thing in this is that we have a uniform and common way to lookup
 
 Note that a t the module layer is possible to configure keys in the same module's namespace and usable only by classes of that module. For example, inside the Hiera data of a module called ```apache```, we can configure only keys beginning with: ```apache::```
 
-#### Hiera Lookup Options
+## Hiera Lookup Options
 
 In the module data is also possible to define the kind of lookup to perform for each class parameter.
 
@@ -162,7 +192,7 @@ Note that we can use regular expressions when defining specific lookup options f
           strategy: unique
           knockout_prefix: "--"
 
-### The lookup command
+## The lookup command
 
 It's possible to use the ```puppet lookup``` command to query Hiera for a given key.
 
@@ -275,7 +305,7 @@ To avoid the need to share `private keys` to all developers, we recommend, anywa
 So for example, if we have a `Hiera layer` which represent a machine environment or tier, and for `Vagrant` nodes we use the `devel tier`, we can override eventually encrypted data in a general ```common.yaml``` with clear text entries in a `Vagrant` specific layer (like ```"tier/devel.yaml"```). Just know that we need the `private key` when encrypted data is looked for, if we manage to have no encrypted data for servers running under `Vagrant`, Hiera ```eyaml``` works flawlessly even if the public and private keys are not stored locally.
 
 
-#### Creating encrypted Hiera values
+### Creating encrypted Hiera values
 
 We can generate the encrypted value of any Hiera key with the following command:
 
@@ -315,7 +345,7 @@ Since `hiera-eyaml` manages both `clear text` and `encrypted` values, we can use
 
 
 
-### Migrating from Hiera 3 to Hiera 5
+## Migrating from Hiera 3 to Hiera 5
 
 As previously described, with version 5 of Hiera three different layers of data are used: global data, environment data and module data each configured by a dedicated hiera.yaml file.
 
@@ -333,7 +363,7 @@ The common approach for a migration then is:
 - **Move** the global hiera.yaml inside the environment (in the root of the control-repo)
 - Move coherently the relevant hiera data directories
 
-#### Conversion of Hiera configuration file from v3 to v5
+### Conversion of Hiera configuration file from v3 to v5
 
 In older hiera configuration files backends and hierarchies were separated settings. First we provided an array of used backends and then we listed the hierarchies. Backends were searched in order of occurrence in the configuration file and then the hierarchies got queried for data.
 
@@ -410,7 +440,7 @@ In this special case it is also possible to completely remove the `yaml` backend
           - "os/%{facts.os.family}.yaml"
           - "common.yaml"
 
-#### Migrating from hiera*() to lookup() function
+### Migrating from hiera*() to lookup() function
 
 The new `lookup` function provides a huge amount of possible usages, here is how it can replace the legacv hiera functions, which are now deprecated.
 
@@ -423,7 +453,7 @@ hash - merged values| hiera_hash('hash')| lookup('hash', {merge => deep})|lookup
 |include|hiera_include('classes')|lookup('classes', {merge => unique}).include|lookup('classes', Array, unique, [] ).include
 
 
-### Hiera nested lookups
+## Hiera nested lookups
 
 Hiera lets us run an additional hiera lookup inside of hiera data.
 
@@ -442,7 +472,7 @@ An example:
         password: '$\.fgeetd'
 
 
-#### The "lookup" and "hiera" lookup
+### The "lookup" and "hiera" lookup
 
 Instead of managing the same information on several places, we can ask hiera to run another lookup to fetch the required data:
 
@@ -469,7 +499,7 @@ You can have multiple layers of nested lookups. That means that we run a lookup 
 
 Howeverm, we have to be aware that Hiera will fail, if we build loops. Hiera will detect these and return an error.
 
-#### The "alias" lookup
+### The "alias" lookup
 
 What if we don't need string, but other data types like boolean, array or hash to be returned by a nested lookup?
 
@@ -485,7 +515,7 @@ In this case we can use the "alias" lookup:
 
 Note, that we can not add additional data to an "alias" lookup.
 
-#### The "literal" lookup
+### The "literal" lookup
 
 Consider the situation in which we don't like hiera to interpolate the percent (%) sign.
 
@@ -495,7 +525,7 @@ In this case we can use the "literal" lookup:
 
 This will return the value `%{SERVER_NAME}`.
 
-#### The "scope" lookup
+### The "scope" lookup
 
 The "scope" function interpolates variables.
 
@@ -508,11 +538,11 @@ The following two examples are identical:
 As we also use the simple interpolation, the "scope" lookup is not really needed.
 
 
-### Advanced hierarchies: globs and mapped paths
+## Advanced hierarchies: globs and mapped paths
 
 The release of Hiera 5 has introduced several new features, one of them is the usage of the **glob** and **globs** keys in the hiera.yaml configuration.
 
-#### Globs
+### Globs
 
 Blogs behave like paths in Hiera configuration, but can be used to specify multiple files:
 
@@ -538,7 +568,7 @@ This could be useful for cases where we want to have different users (or machine
 For example it could be useful to split a file like [this](https://github.com/example42/psick/blob/production/site/profile/data/common.yaml) in different files, eventually one of each class / profile.
 
 
-#### Mapped paths
+### Mapped paths
 
 Another interesting way to define hierarchies is by using **mapped paths** key.
 

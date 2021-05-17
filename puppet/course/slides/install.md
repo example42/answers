@@ -61,7 +61,7 @@ First, the client retrieves **plugins** (facts, types and providers...) present 
 
     Client output # Info: Retrieving plugin
 
-Then the client runs **facter** toi collect facts and send them to the server:
+Then the client runs **facter** to collect facts and send them to the server:
 
     Client output # Info: Loading facts in /opt/puppetlabs/puppet/lib/facter/... [...]
 
@@ -75,10 +75,10 @@ If there are not syntax errors in the processed Puppet code, the server sends th
 
 If there are syntax errors, missing references or other hard errors on our code, here we get an error instead.
 
-[ ... continues ]
+
 ---
 
-### Anatomy of a Puppet Run 122
+### Anatomy of a Puppet Run 2/2
 <img src="gfx/intermediate.png" class="skill">
 
 Once the client has received the catalog, it resolves the dependencies order of the resources (it fails here if there are depenencies loops) and it starts to **apply** it:
